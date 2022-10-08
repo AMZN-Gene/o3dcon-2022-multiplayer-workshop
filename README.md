@@ -53,3 +53,20 @@ Step 3: Open Editor and make a new player
    Important Note: Use network.spawnable not .spawnables
 9. Notice the player position is still at <0,0,0> and not where you've placed the PlayerSpawner
 10. Add NetworkTransformComponent to O3DConPlayer.prefab and now the player position is fixed
+
+Step 4: Adding a custom multiplayer controller code File
+1. Update O3DConPlayer.AutoComponent.xml to enable custom controller logic
+<Component
+    Name="O3DConPlayer" 
+    OverrideController="true" 
+    OverrideInclude="Source/Components/O3DConPlayer.h"
+    
+2. Compile. Notice compiler error.
+    Cannot open include file: 'Source/Components/O3DConPlayer.h': No such file or directory
+    This is because we never made that file!
+4. Open Visual Studio and find the generated multiplayer base class code
+   a. Solution Explorer > Project.Static > GeneratedFiles > O3DConPlayer.AutoComponent.h
+5. The generated auto-component comes with boilerplate code that's commented out for you to use inside of your new MyMultiplayerGame\Gem\Code\Source\Components\O3DConPlayer.cpp/.h files.
+   a. Copy and paste the "Place in your .h" section and "Place in your .cpp" section into your .h and .cpp respectively
+6. Update MyMultiplayerGame_files.cmake with the new .cpp/.h files
+7. Compile successfully

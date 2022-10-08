@@ -36,6 +36,8 @@ set(FILES
     Source/Components/NetworkPrefabSpawnerComponent.h
     Source/Components/NetworkPlayerMovementComponent.cpp
     Source/Components/NetworkPlayerMovementComponent.h
+    Source/Components/O3DConPlayer.cpp
+    Source/Components/O3DConPlayer.h
     Source/Spawners/IPlayerSpawner.h
     Source/Spawners/RoundRobinSpawner.h
     Source/Spawners/RoundRobinSpawner.cpp
