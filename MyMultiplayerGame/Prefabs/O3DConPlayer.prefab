@@ -1,0 +1,161 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "O3DConPlayer",
+        "Components": {
+            "Component_[10560780092107715353]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 10560780092107715353
+            },
+            "Component_[11467161340369738173]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 11467161340369738173
+            },
+            "Component_[13025731007702305867]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 13025731007702305867,
+                "Parent Entity": ""
+            },
+            "Component_[13793909966644562647]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 13793909966644562647
+            },
+            "Component_[14624083774340788775]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 14624083774340788775
+            },
+            "Component_[15237083807503727637]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 15237083807503727637,
+                "Child Entity Order": [
+                    "Entity_[760024160592]"
+                ]
+            },
+            "Component_[16399109494516555142]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 16399109494516555142
+            },
+            "Component_[3464200213508728513]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 3464200213508728513
+            },
+            "Component_[5097559245301665336]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 5097559245301665336
+            },
+            "Component_[7628775991470589054]": {
+                "$type": "EditorLockComponent",
+                "Id": 7628775991470589054
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[760024160592]": {
+            "Id": "Entity_[760024160592]",
+            "Name": "Player",
+            "Components": {
+                "Component_[12755824876300687125]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 12755824876300687125
+                },
+                "Component_[13058208987253429928]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 13058208987253429928,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[13256516063420814997]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 13256516063420814997,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 4276778071353796152
+                        },
+                        {
+                            "ComponentId": 15555546425895620811,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 14253832401423387745,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 6006446407801236302,
+                            "SortIndex": 3
+                        },
+                        {
+                            "ComponentId": 13058208987253429928,
+                            "SortIndex": 4
+                        }
+                    ]
+                },
+                "Component_[13478553677984421918]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 13478553677984421918
+                },
+                "Component_[14253832401423387745]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 14253832401423387745,
+                    "m_template": {
+                        "$type": "MyMultiplayerGame::O3DConPlayer"
+                    }
+                },
+                "Component_[15555546425895620811]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 15555546425895620811,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{0C731B02-18BC-58ED-9DED-B22375D43B2B}",
+                                    "subId": 274477424
+                                },
+                                "assetHint": "materialeditor/viewportmodels/beveledcylinder.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[15655110317468779215]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 15655110317468779215
+                },
+                "Component_[17495482982719517424]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 17495482982719517424
+                },
+                "Component_[18322960517894528434]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 18322960517894528434
+                },
+                "Component_[3306790448579884874]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 3306790448579884874
+                },
+                "Component_[3994329946946426953]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3994329946946426953,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[4276778071353796152]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 4276778071353796152,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[6006446407801236302]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 6006446407801236302,
+                    "m_template": {
+                        "$type": "Multiplayer::LocalPredictionPlayerInputComponent"
+                    }
+                },
+                "Component_[6029284424738379808]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 6029284424738379808
+                }
+            }
+        }
+    }
+}

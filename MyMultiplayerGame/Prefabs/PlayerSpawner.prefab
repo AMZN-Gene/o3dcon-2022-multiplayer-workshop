@@ -70,10 +70,10 @@
                         "SnapToGround": true,
                         "SpawnableAsset": {
                             "assetId": {
-                                "guid": "{13BAFCBF-6669-5E4E-B3B0-8610349B2C01}",
-                                "subId": 738868766
+                                "guid": "{5C879BC9-0565-5A71-9F0E-F9ED64540F18}",
+                                "subId": 3979646544
                             },
-                            "assetHint": "prefabs/player.network.spawnable"
+                            "assetHint": "prefabs/o3dconplayer.network.spawnable"
                         }
                     }
                 },

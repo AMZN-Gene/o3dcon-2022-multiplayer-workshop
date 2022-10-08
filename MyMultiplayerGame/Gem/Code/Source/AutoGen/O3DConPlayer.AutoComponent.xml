@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="O3DConPlayer" 
+    Namespace="MyMultiplayerGame" 
+    OverrideComponent="false" 
+    OverrideController="false" 
+    OverrideInclude="Source/Components/NetworkWeaponsComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="MultiplayerAutoComponentSchema.xsd">
+
+    <NetworkInput Type="int" Name="ButtonsMashed" Init="0" />
+</Component>

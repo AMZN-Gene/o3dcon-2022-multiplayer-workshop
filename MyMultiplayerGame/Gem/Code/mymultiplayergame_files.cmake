@@ -15,6 +15,7 @@ set(FILES
     Source/AutoGen/NetworkWeaponsComponent.AutoComponent.xml
     Source/AutoGen/NetworkSimplePlayerCameraComponent.AutoComponent.xml
     Source/AutoGen/NetworkPlayerMovementComponent.AutoComponent.xml
+    Source/AutoGen/O3DConPlayer.AutoComponent.xml
     Source/Components/ExampleFilteredEntityComponent.h
     Source/Components/ExampleFilteredEntityComponent.cpp
     Source/Components/NetworkAiComponent.cpp
