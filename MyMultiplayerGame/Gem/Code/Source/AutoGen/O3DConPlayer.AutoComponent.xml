@@ -5,7 +5,7 @@
     Namespace="MyMultiplayerGame" 
     OverrideComponent="false" 
     OverrideController="false" 
-    OverrideInclude="Source/Components/NetworkWeaponsComponent.h"
+    OverrideInclude=""
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="MultiplayerAutoComponentSchema.xsd">
 
