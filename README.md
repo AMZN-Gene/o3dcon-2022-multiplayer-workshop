@@ -70,3 +70,88 @@ Step 4: Adding a custom multiplayer controller code File
    a. Copy and paste the "Place in your .h" section and "Place in your .cpp" section into your .h and .cpp respectively
 6. Update MyMultiplayerGame_files.cmake with the new .cpp/.h files
 7. Compile successfully
+
+Step 5: Keyboard Input
+Update O3DConPlayer.h/.cpp to gather keyboard input and send it across the network.
+We won't do anything with the input yet except print a log anytime we press a key and process it via the network input system.
+
+// O3DConPlayer.h updates
+#include <Source/AutoGen/O3DConPlayer.AutoComponent.h>
+#include <AzFramework/Input/Events/InputChannelEventListener.h>
+namespace MyMultiplayerGame
+{
+    class O3DConPlayerController
+        : public O3DConPlayerControllerBase
+        , protected AzFramework::InputChannelEventListener //< could use StartingPointInput::InputEventNotificationBus::MultiHandler instead
+    {
+    public:
+
+        //! AzFramework::InputChannelEventListener overrides
+        bool OnInputChannelEventFiltered(const AzFramework::InputChannel& inputChannel) override;
+
+    private:
+        int m_keysPressed = 0;
+        bool m_isPressing = false;
+    };
+}
+
+// O3DConPlayerController.cpp updates
+namespace MyMultiplayerGame
+{
+    void O3DConPlayerController::OnActivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        if(IsNetEntityRoleAutonomous())
+        {
+            InputChannelEventListener::Connect();
+        }
+    }
+
+    void O3DConPlayerController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
+    {
+        if (IsNetEntityRoleAutonomous())
+        {
+            InputChannelEventListener::Disconnect();
+        }
+    }
+
+    // Called by the player on the player's machine
+    void O3DConPlayerController::CreateInput([[maybe_unused]] Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
+    {
+        O3DConPlayerNetworkInput* playerInput = input.FindComponentInput<O3DConPlayerNetworkInput>();
+        playerInput->m_buttonsMashed = m_keysPressed;
+        m_keysPressed = 0;
+    }
+
+    // Called by the player on the player's machine
+    // Called on the server with the information we need
+    void O3DConPlayerController::ProcessInput([[maybe_unused]] Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
+    {
+        const auto* playerInput = input.FindComponentInput<O3DConPlayerNetworkInput>();
+        if (playerInput->m_buttonsMashed > 0)
+        {
+            AZLOG_WARN("Player pressed %i keys this network frame!", playerInput->m_buttonsMashed);
+        }
+    }
+
+    bool O3DConPlayerController::OnInputChannelEventFiltered(const AzFramework::InputChannel& inputChannel)
+    {
+        // only accept keyboard input
+        if (inputChannel.GetInputDevice().GetInputDeviceId().GetNameCrc32() != AZ_CRC("keyboard"))
+        {
+            return false;
+        }
+
+        const bool isPressed = inputChannel.GetValue() > 0.0f;
+        if( !m_isPressing && isPressed )
+        {
+            m_isPressing = true;
+            ++m_keysPressed;
+        }
+        else if(inputChannel.GetValue() == 0.0f)
+        {
+            m_isPressing = false;
+        }
+
+        return true;
+    }
+}

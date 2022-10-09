@@ -1,11 +1,13 @@
 #pragma once
 
 #include <Source/AutoGen/O3DConPlayer.AutoComponent.h>
+#include <AzFramework/Input/Events/InputChannelEventListener.h>
 
 namespace MyMultiplayerGame
 {
     class O3DConPlayerController
         : public O3DConPlayerControllerBase
+        , AzFramework::InputChannelEventListener // In a real game it would be wiser to use StartingPointInput::InputEventNotificationBus::MultiHandler instead
     {
     public:
         explicit O3DConPlayerController(O3DConPlayer& parent);
@@ -25,7 +27,11 @@ namespace MyMultiplayerGame
         //! @param deltaTime amount of time to integrate the provided inputs over
         void ProcessInput(Multiplayer::NetworkInput& input, float deltaTime) override;
 
-    protected:
-        
+        //! AzFramework::InputChannelEventListener overrides
+        bool OnInputChannelEventFiltered(const AzFramework::InputChannel& inputChannel) override;
+
+    private:
+        int m_keysPressed = 0;
+        bool m_isPressing = false;
     };
 }
