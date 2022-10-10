@@ -155,3 +155,16 @@ namespace MyMultiplayerGame
         return true;
     }
 }
+
+Step 6: Moving the player transform
+1. Update ProcessInput()
+    void O3DConPlayerController::ProcessInput(Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
+    {
+        const auto* playerInput = input.FindComponentInput<O3DConPlayerNetworkInput>();
+
+        const float movementPerButtonPress = 0.1f;
+        const AZ::Vector3 delta = AZ::Vector3::CreateAxisY(movementPerButtonPress * playerInput->m_buttonsMashed);
+
+        GetEntity()->GetTransform()->SetWorldTranslation(GetEntity()->GetTransform()->GetWorldTranslation() + delta);
+    }
+The player will now move forward everytime you press a key.
