@@ -3,13 +3,14 @@
 <Component
     Name="O3DConPlayer" 
     Namespace="MyMultiplayerGame" 
-    OverrideComponent="false" 
+    OverrideComponent="true" 
     OverrideController="true" 
     OverrideInclude="Source/Components/O3DConPlayer.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="MultiplayerAutoComponentSchema.xsd">
 
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkCharacterComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkCharacterComponent.h" />
+    <NetworkProperty Type="int" Name="PlayerId" Init="-1" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
 
     <NetworkInput Type="int" Name="ButtonsMashed" Init="0" />
 </Component>

@@ -2,9 +2,27 @@
 
 #include <Source/AutoGen/O3DConPlayer.AutoComponent.h>
 #include <AzFramework/Input/Events/InputChannelEventListener.h>
+#include <AzCore/Component/TickBus.h>
 
 namespace MyMultiplayerGame
 {
+    class O3DConPlayer
+        : public O3DConPlayerBase
+        , AZ::TickBus::Handler
+    {
+    public:
+        AZ_MULTIPLAYER_COMPONENT(MyMultiplayerGame::O3DConPlayer, s_o3DConPlayerConcreteUuid, MyMultiplayerGame::O3DConPlayerBase);
+
+        static void Reflect(AZ::ReflectContext* context);
+
+        void OnInit() override;
+        void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+        void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+
+        //! AZ::TickBus overrides...
+        void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
+    };
+
     class O3DConPlayerController
         : public O3DConPlayerControllerBase
         , AzFramework::InputChannelEventListener // In a real game it would be wiser to use StartingPointInput::InputEventNotificationBus::MultiHandler instead
