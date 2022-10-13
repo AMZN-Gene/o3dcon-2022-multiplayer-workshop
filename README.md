@@ -168,3 +168,17 @@ Step 6: Moving the player transform
         GetEntity()->GetTransform()->SetWorldTranslation(GetEntity()->GetTransform()->GetWorldTranslation() + delta);
     }
 The player will now move forward everytime you press a key.
+
+Step 7: Moving the player properly with a PhysX Character Controller
+1. Add some NetworkRigidBody.prefabs to the level in front of the player spawner and notice that the player moves through the boxes like a ghost
+2. Open O3DConPlayer.prefab and add a "Network Character" component
+   i. Add the PhysX Character Controller dependency
+   ii. Save O3DConPlayer.prefab and exit Editor.exe
+2. Update O3DConPlayer.AutoComponent.xml. This will make NetworkCharacterComponent a component dependency as well as create a helper function GetNetworkCharacterComponentController() 
+      <ComponentRelation Constraint="Required" HasController="true" Name="NetworkCharacterComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkCharacterComponent.h" />
+3. Update the O3DConPlayer.cpp ProcessInput() code to move the NetworkCharacterComponent
+      const auto* playerInput = input.FindComponentInput<O3DConPlayerNetworkInput>();
+      const AZ::Vector3 MovementPerButtonPress = AZ::Vector3::CreateAxisY(10.0f);
+      const AZ::Vector3 delta = MovementPerButtonPress * aznumeric_cast<float>(playerInput->m_buttonsMashed);
+      GetNetworkCharacterComponentController()->TryMoveWithVelocity(delta, deltaTime);
+4. Compile, open Editor, run the game, and notice that the player now pushes the boxes around

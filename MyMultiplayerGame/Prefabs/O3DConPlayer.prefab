@@ -54,6 +54,27 @@
             "Id": "Entity_[760024160592]",
             "Name": "Player",
             "Components": {
+                "Component_[10188565833770842814]": {
+                    "$type": "EditorCharacterControllerComponent",
+                    "Id": 10188565833770842814,
+                    "Configuration": {
+                        "entityId": "",
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Component_[12084758012691041664]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 12084758012691041664,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkCharacterComponent"
+                    }
+                },
                 "Component_[12755824876300687125]": {
                     "$type": "EditorEntityIconComponent",
                     "Id": 12755824876300687125
@@ -142,7 +163,14 @@
                 "Component_[4276778071353796152]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 4276778071353796152,
-                    "Parent Entity": "ContainerEntity"
+                    "Parent Entity": "ContainerEntity",
+                    "Transform Data": {
+                        "Translate": [
+                            0.0,
+                            0.0,
+                            3.8938162326812744
+                        ]
+                    }
                 },
                 "Component_[6006446407801236302]": {
                     "$type": "GenericComponentWrapper",

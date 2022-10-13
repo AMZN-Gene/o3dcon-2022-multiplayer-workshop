@@ -26,7 +26,11 @@
                 "Child Entity Order": [
                     "Entity_[1176639161715]",
                     "Instance_[725664422224]/ContainerEntity",
-                    "Instance_[699894618448]/ContainerEntity"
+                    "Instance_[699894618448]/ContainerEntity",
+                    "Instance_[567040988243]/ContainerEntity",
+                    "Instance_[554156086355]/ContainerEntity",
+                    "Instance_[541271184467]/ContainerEntity",
+                    "Instance_[515501380691]/ContainerEntity"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -557,6 +561,106 @@
         }
     },
     "Instances": {
+        "Instance_[515501380691]": {
+            "Source": "Prefabs/NetworkRigidBodyCube.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/0",
+                    "value": -1.557915449142456
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/1",
+                    "value": 2.050663471221924
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/2",
+                    "value": 0.4888777732849121
+                }
+            ]
+        },
+        "Instance_[541271184467]": {
+            "Source": "Prefabs/NetworkRigidBodyCube.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/0",
+                    "value": -0.42303740978240967
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/1",
+                    "value": 2.050663471221924
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/2",
+                    "value": 0.4888777732849121
+                }
+            ]
+        },
+        "Instance_[554156086355]": {
+            "Source": "Prefabs/NetworkRigidBodyCube.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/0",
+                    "value": 0.7391585111618042
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/1",
+                    "value": 2.050663471221924
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/2",
+                    "value": 0.4888777732849121
+                }
+            ]
+        },
+        "Instance_[567040988243]": {
+            "Source": "Prefabs/NetworkRigidBodyCube.prefab",
+            "Patches": [
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Parent Entity",
+                    "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/0",
+                    "value": 1.8323912620544434
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/1",
+                    "value": 2.050663471221924
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[5083034437084933249]/Transform Data/Translate/2",
+                    "value": 0.4888777732849121
+                }
+            ]
+        },
         "Instance_[699894618448]": {
             "Source": "Prefabs/PlayerSpawner.prefab",
             "Patches": [

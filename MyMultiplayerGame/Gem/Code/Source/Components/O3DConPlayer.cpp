@@ -35,10 +35,9 @@ namespace MyMultiplayerGame
     void O3DConPlayerController::ProcessInput([[maybe_unused]] Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
     {
         const auto* playerInput = input.FindComponentInput<O3DConPlayerNetworkInput>();
-        const float movementPerButtonPress = 0.1f;
-        const AZ::Vector3 delta = AZ::Vector3::CreateAxisY(movementPerButtonPress * playerInput->m_buttonsMashed);
-
-        GetEntity()->GetTransform()->SetWorldTranslation(GetEntity()->GetTransform()->GetWorldTranslation() + delta);
+        const AZ::Vector3 MovementPerButtonPress = AZ::Vector3::CreateAxisY(10.0f);
+        const AZ::Vector3 delta = MovementPerButtonPress * aznumeric_cast<float>(playerInput->m_buttonsMashed);
+        GetNetworkCharacterComponentController()->TryMoveWithVelocity(delta, deltaTime);
     }
 
     bool O3DConPlayerController::OnInputChannelEventFiltered(const AzFramework::InputChannel& inputChannel)

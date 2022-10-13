@@ -9,5 +9,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="MultiplayerAutoComponentSchema.xsd">
 
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkCharacterComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkCharacterComponent.h" />
+
     <NetworkInput Type="int" Name="ButtonsMashed" Init="0" />
 </Component>
