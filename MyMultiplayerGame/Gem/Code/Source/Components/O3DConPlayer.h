@@ -18,6 +18,7 @@ namespace MyMultiplayerGame
         void OnInit() override;
         void OnActivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
         void OnDeactivate(Multiplayer::EntityIsMigrating entityIsMigrating) override;
+        void HandlePlayerFinishedRPC(AzNetworking::IConnection* invokingConnection, const Multiplayer::HostFrameId& networkFrameTime) override;
 
         //! AZ::TickBus overrides...
         void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
@@ -51,5 +52,6 @@ namespace MyMultiplayerGame
     private:
         int m_keysPressed = 0;
         bool m_isPressing = false;
+        Multiplayer::HostFrameId m_finishedFrame = Multiplayer::InvalidHostFrameId;
     };
 }

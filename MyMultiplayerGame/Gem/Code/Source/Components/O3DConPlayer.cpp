@@ -31,6 +31,11 @@ namespace MyMultiplayerGame
         AZ::TickBus::Handler::BusDisconnect();
     }
 
+    void O3DConPlayer::HandlePlayerFinishedRPC([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const Multiplayer::HostFrameId& networkFrameTime)
+    {
+        AZLOG_ERROR("Player %i finished at network frame: %i", GetPlayerId(), static_cast<uint32_t>(networkFrameTime));
+    }
+
     void O3DConPlayer::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
         AZStd::string playerId = AZStd::string::format("Player: %i", GetPlayerId());
@@ -79,6 +84,19 @@ namespace MyMultiplayerGame
         const AZ::Vector3 MovementPerButtonPress = AZ::Vector3::CreateAxisY(10.0f);
         const AZ::Vector3 delta = MovementPerButtonPress * aznumeric_cast<float>(playerInput->m_buttonsMashed);
         GetNetworkCharacterComponentController()->TryMoveWithVelocity(delta, deltaTime);
+
+        if(IsNetEntityRoleAuthority())
+        {
+            const int buttonPressesToFinish = 20;
+            SetTotalButtonsMashed(GetTotalButtonsMashed() + playerInput->m_buttonsMashed);
+
+            const Multiplayer::HostFrameId currentNetworkFrame = Multiplayer::GetNetworkTime()->GetHostFrameId();
+            if (GetTotalButtonsMashed() >= buttonPressesToFinish && currentNetworkFrame < m_finishedFrame)
+            {
+                m_finishedFrame = currentNetworkFrame;
+                PlayerFinishedRPC(m_finishedFrame);
+            }
+        }
     }
 
     bool O3DConPlayerController::OnInputChannelEventFiltered(const AzFramework::InputChannel& inputChannel)

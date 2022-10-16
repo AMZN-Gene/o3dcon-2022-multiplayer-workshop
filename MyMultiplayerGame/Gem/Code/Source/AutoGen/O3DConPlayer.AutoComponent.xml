@@ -11,6 +11,10 @@
 
     <ComponentRelation Constraint="Required" HasController="true" Name="NetworkCharacterComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkCharacterComponent.h" />
     <NetworkProperty Type="int" Name="PlayerId" Init="-1" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="true" IsRewindable="false" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
-
     <NetworkInput Type="int" Name="ButtonsMashed" Init="0" />
+
+    <NetworkProperty Type="int" Name="TotalButtonsMashed" Init="0" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="false" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+    <RemoteProcedure Name="PlayerFinishedRPC" InvokeFrom="Authority" HandleOn="Client" IsPublic="false" IsReliable="true" GenerateEventBindings="false" Description="">
+        <Param Type="Multiplayer::HostFrameId" Name="NetworkFrameTime" />
+    </RemoteProcedure>
 </Component>

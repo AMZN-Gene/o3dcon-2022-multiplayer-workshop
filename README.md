@@ -182,3 +182,57 @@ Step 7: Moving the player properly with a PhysX Character Controller
       const AZ::Vector3 delta = MovementPerButtonPress * aznumeric_cast<float>(playerInput->m_buttonsMashed);
       GetNetworkCharacterComponentController()->TryMoveWithVelocity(delta, deltaTime);
 4. Compile, open Editor, run the game, and notice that the player now pushes the boxes around
+
+Step 8: Report a Win!
+1. Add a new RPC and new network property to O3DConPlayer.AutoComponent.xml
+    ```
+    <NetworkProperty Type="int" Name="TotalButtonsMashed" Init="0" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="false" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
+    <RemoteProcedure Name="PlayerFinishedRPC" InvokeFrom="Authority" HandleOn="Client" IsPublic="false" IsReliable="true" GenerateEventBindings="false" Description="">
+        <Param Type="Multiplayer::HostFrameId" Name="NetworkFrameTime" />
+    </RemoteProcedure>
+    ```
+2. Update O3DConPlayerController::ProcessInput to send the PlayerFinsihedRPC if the total buttons pressed reaches a certain amount
+    a) Update O3DConPlayer.h O3DConPlayerController to store the network host time the player crossed the finish line
+        ```
+        class O3DConPlayerController
+        {
+            ...
+            Multiplayer::HostFrameId m_finishedFrame = Multiplayer::InvalidHostFrameId;
+        ```
+        
+    b) Update O3DConPlayerController::ProcessInput to check if the finish line was crossed
+    ```
+    void O3DConPlayerController::ProcessInput([[maybe_unused]] Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
+    {
+        ...
+        
+        if(IsNetEntityRoleAuthority())
+        {
+            const int buttonPressesToFinish = 20;
+            SetTotalButtonsMashed(GetTotalButtonsMashed() + playerInput->m_buttonsMashed);
+
+            const Multiplayer::HostFrameId currentNetworkFrame = Multiplayer::GetNetworkTime()->GetHostFrameId();
+            if (GetTotalButtonsMashed() >= buttonPressesToFinish && currentNetworkFrame < m_finishedFrame)
+            {
+                m_finishedFrame = currentNetworkFrame;
+                PlayerFinishedRPC(m_finishedFrame);
+            }
+        }
+    }
+    ```
+3. Update O3DConPlayer Component
+    a) Update O3DConPlayer.h to declare the HandlePlayerFinishedRPC function
+        ```
+        class O3DConPlayer
+        { 
+            ...
+            void HandlePlayerFinishedRPC(AzNetworking::IConnection* invokingConnection, const Multiplayer::HostFrameId& networkFrameTime) override;
+        ```
+    b) Implement the handler in O3DConPlayer.cpp
+    ```
+    void O3DConPlayer::HandlePlayerFinishedRPC([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const Multiplayer::HostFrameId& networkFrameTime)
+    {
+        AZLOG_ERROR("Player %i finished at network frame: %i", GetPlayerId(), static_cast<uint32_t>(networkFrameTime));
+    }
+    ```
+4. Play the game, and check the console log and see that a message is sent to the client when a player crosses the finish line
