@@ -75,6 +75,7 @@ Step 5: Keyboard Input
 Update O3DConPlayer.h/.cpp to gather keyboard input and send it across the network.
 We won't do anything with the input yet except print a log anytime we press a key and process it via the network input system.
 
+```
 // O3DConPlayer.h updates
 #include <Source/AutoGen/O3DConPlayer.AutoComponent.h>
 #include <AzFramework/Input/Events/InputChannelEventListener.h>
@@ -155,9 +156,11 @@ namespace MyMultiplayerGame
         return true;
     }
 }
+```
 
 Step 6: Moving the player transform
 1. Update ProcessInput()
+    ```
     void O3DConPlayerController::ProcessInput(Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
     {
         const auto* playerInput = input.FindComponentInput<O3DConPlayerNetworkInput>();
@@ -167,6 +170,8 @@ Step 6: Moving the player transform
 
         GetEntity()->GetTransform()->SetWorldTranslation(GetEntity()->GetTransform()->GetWorldTranslation() + delta);
     }
+    ```
+
 The player will now move forward everytime you press a key.
 
 Step 7: Moving the player properly with a PhysX Character Controller
@@ -174,16 +179,20 @@ Step 7: Moving the player properly with a PhysX Character Controller
 2. Open O3DConPlayer.prefab and add a "Network Character" component
    i. Add the PhysX Character Controller dependency
    ii. Save O3DConPlayer.prefab and exit Editor.exe
-2. Update O3DConPlayer.AutoComponent.xml. This will make NetworkCharacterComponent a component dependency as well as create a helper function GetNetworkCharacterComponentController() 
+2. Update O3DConPlayer.AutoComponent.xml. This will make NetworkCharacterComponent a component dependency as well as create a helper function GetNetworkCharacterComponentController()
+    ```
       <ComponentRelation Constraint="Required" HasController="true" Name="NetworkCharacterComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkCharacterComponent.h" />
+    ```
 3. Update the O3DConPlayer.cpp ProcessInput() code to move the NetworkCharacterComponent
+    ```
       const auto* playerInput = input.FindComponentInput<O3DConPlayerNetworkInput>();
       const AZ::Vector3 MovementPerButtonPress = AZ::Vector3::CreateAxisY(10.0f);
       const AZ::Vector3 delta = MovementPerButtonPress * aznumeric_cast<float>(playerInput->m_buttonsMashed);
       GetNetworkCharacterComponentController()->TryMoveWithVelocity(delta, deltaTime);
+    ```
 4. Compile, open Editor, run the game, and notice that the player now pushes the boxes around
 
-Step 8: Report a Win!
+Step 8: Report a win!
 1. Add a new RPC and new network property to O3DConPlayer.AutoComponent.xml
     ```
     <NetworkProperty Type="int" Name="TotalButtonsMashed" Init="0" ReplicateFrom="Authority" ReplicateTo="Client" Container="Object" IsPublic="false" IsRewindable="true" IsPredictable="false" ExposeToEditor="false" ExposeToScript="false" GenerateEventBindings="false" Description="" />
@@ -191,16 +200,19 @@ Step 8: Report a Win!
         <Param Type="Multiplayer::HostFrameId" Name="NetworkFrameTime" />
     </RemoteProcedure>
     ```
-2. Update O3DConPlayerController::ProcessInput to send the PlayerFinsihedRPC if the total buttons pressed reaches a certain amount
+2. Update O3DConPlayerController::ProcessInput to send the PlayerFinsihedRPC if the total buttons pressed reaches a certain count.
+
     a) Update O3DConPlayer.h O3DConPlayerController to store the network host time the player crossed the finish line
-        ```
+
+        
         class O3DConPlayerController
         {
             ...
             Multiplayer::HostFrameId m_finishedFrame = Multiplayer::InvalidHostFrameId;
-        ```
+        
         
     b) Update O3DConPlayerController::ProcessInput to check if the finish line was crossed
+
     ```
     void O3DConPlayerController::ProcessInput([[maybe_unused]] Multiplayer::NetworkInput& input, [[maybe_unused]] float deltaTime)
     {
@@ -222,12 +234,12 @@ Step 8: Report a Win!
     ```
 3. Update O3DConPlayer Component
     a) Update O3DConPlayer.h to declare the HandlePlayerFinishedRPC function
-        ```
+
         class O3DConPlayer
         { 
             ...
             void HandlePlayerFinishedRPC(AzNetworking::IConnection* invokingConnection, const Multiplayer::HostFrameId& networkFrameTime) override;
-        ```
+        
     b) Implement the handler in O3DConPlayer.cpp
     ```
     void O3DConPlayer::HandlePlayerFinishedRPC([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const Multiplayer::HostFrameId& networkFrameTime)
