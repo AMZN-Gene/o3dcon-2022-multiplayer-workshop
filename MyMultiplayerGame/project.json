@@ -12,7 +12,7 @@
         "MyMultiplayerGame"
     ],
     "icon_path": "preview.png",
-    "engine": "O3DEInstall",
+    "engine": "o3de-sdk",
     "external_subdirectories": [],
     "restricted": "MyMultiplayerGame"
 }
